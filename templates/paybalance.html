@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<body style="background-color: rgb(98, 207, 147);">    
+
+    <h2>Pay Back Loan</h2>
+    <form action= "/paybalance" method="post">
+        <label for="amountpaid">Amount Paid Back:</label>
+        <input type="number" id="amountpaid" name="amountpaid" required>
+        <br>
+        <br>
+        <button type="submit">Enter</button>
+    </form>
+    <br>
+    <div style="background-color: white; padding: 15px; border-radius: 10px; display: flex; gap: 30px; justify-content: center; align-items: center; width: fit-content; margin: 0 auto;">
+        <p style="margin: 0;"><strong>Amount Paid:</strong> ${{ amount }}</p>
+        <p style="margin: 0;"><strong>Total Loan:</strong> ${{ initial }}</p>
+        <p style="margin: 0; color: red;"><strong>Loan Remaining: ${{ balance }}</strong></p>
+    </div>
+    <br>
+    <script>
+        document.addEventListener('submit', function(event) {
+            const paid = document.getElementById('amountpaid').value;
+            if (!paid || paid < 0) 
+            {
+                showToast('Please enter a valid amount to pay back', "error", 2000);
+                setTimeout(() => {
+                    event.target.submit();
+                }, 2200);
+                return;
+            }
+            else 
+            {
+                showToast('Your payment of $' + paid + ' has been processed', "success", 2000);
+                setTimeout(() => {
+                    event.target.submit();
+                }, 2200);
+            }
+        });
+    </script>
+    <a href="/leaderboard">View Leaderboard</a>
+{% endblock %}

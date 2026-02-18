@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+        <meta name="viewport" content="initial-scale=1, width=device-width">
+        <title>Repay Loans</title>
+        <link rel="stylesheet" href="/static/styles.css">
+        <style>
+            body {
+                text-align: center;
+                margin: 2em;
+            }
+        </style>
+    </head>
+
+        <img src="/static/JA_logo.png" height="200" title="Junior Achievement Logo">
+        <br>  
+        <div id="toast-container"></div>
+        {% block body %}{% endblock %}
+        
+    </body>
+        <script>
+        function showToast(message, type, duration = 3000) 
+        {  // <-- 3 seconds default
+            const toastContainer = document.getElementById('toast-container');
+            const toastMessage = document.createElement('div');
+            toastMessage.classList.add('toast-message');
+
+            if (type === 'success') {
+                toastMessage.classList.add('success');
+            } else if (type === 'error') {
+                toastMessage.classList.add('error');
+            } else if (type === 'info') {
+                toastMessage.classList.add('info');
+            }
+
+            toastMessage.textContent = message;
+            toastContainer.appendChild(toastMessage);
+
+            // Start fade out animation after duration - 500ms (to account for fade animation)
+            setTimeout(() => {
+                toastMessage.classList.add('fade-out');
+            }, duration - 500);
+
+            // Remove element after fade animation completes
+            setTimeout(() => {
+                toastMessage.remove();
+            }, duration);
+        }
+    </script>
+</html>

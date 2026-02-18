@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<body style="background-color: rgb(98, 207, 147);">    
+
+    <h2>Initial Loan</h2>
+    <form action="/initial" method="post">
+        <label for="loan">Loan Amount:</label>
+        <input type="number" id="loan" name="loan" required>
+        <br>
+        <br>
+        <button type="submit">Enter</button>
+    </form>
+    <br>
+    <p>Use your business cost sheet to enter the correct value!</p>
+    <script>
+        document.addEventListener('submit', function(event) {
+            const loan = document.getElementById('loan').value;
+            if (!loan || loan < 0 || loan > 300) 
+            {
+                showToast('Please enter a valid loan amount', "error", 2000);
+                setTimeout(() => {
+                    event.target.submit();
+                }, 2200);
+                return;
+            }
+            else 
+            {
+                showToast('Your initial loan of $' + loan + ' has been processed', "success", 2000);
+                setTimeout(() => {
+                    event.target.submit();
+                }, 2200);
+                return;
+            }
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,94 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<body style="background-color: rgb(98, 207, 147);">    
+
+    <h2>JA Loan Repayment</h2>
+    <form action="/login" method="post">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+        <br>
+        <br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        <br>
+        <br>
+        <button type="submit">Start</button>
+    </form>
+    <br>
+
+    <script>
+        document.addEventListener('submit', function(event) {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            // Map usernames to company names
+            let companyCorrespondence = 
+            {
+                "zeiglercfo": "Zeigler",
+                "citycfo": "City of Lafayette",
+                "purduefederalcfo": "Purdue Federal Credit Union",
+                "purduecfo": "Purdue University",
+                "frecklescfo": "Freckles Graphics",
+                "iuhealthcfo": "IU Health",
+                "andersoncfo": "Anderson Heating & Cooling",
+                "wabashcfo": "Wabash",
+                "caterpillarcfo": "Caterpillar",
+                "statefarmcfo": "State Farm",
+                "azzipcfo": "Azzip Pizza",
+                "kirbyriskcfo": "Kirby Risk",
+                "tipmontcfo": "Tipmont",
+                "generalelectriccfo": "GE Aerospace",
+                "JArocks": "JA Admin"
+            };
+
+            // TODO: Clean up validation process
+            // TODO: Add login notifications
+
+            // Validate password and username
+            if (!username || !password) {
+                event.preventDefault();
+                showToast('Both username and password are required.', "error", 2000);
+                setTimeout(() => {
+                    event.target.submit();
+                }, 1500);
+                return;
+            }
+
+            // Admin check
+            else if (password in companyCorrespondence && username == "admin")
+            {
+                event.preventDefault();
+                showToast('Welcome, ' + companyCorrespondence[password] + ' CFO! Login successful.', "success", 2000);
+                setTimeout(() => {
+                    event.target.submit();
+                }, 1500);
+                return;
+            }
+
+            // User check
+        
+            else if (!(password in companyCorrespondence) || username != password.replace("cfo", ""))
+            {
+                event.preventDefault();
+                showToast('Invalid password or username. Please try again.', "error", 2000);
+                setTimeout(() => {
+                    event.target.submit();
+                }, 2200);
+                return;
+            }
+
+            // Success message for login
+            else 
+            {
+                event.preventDefault();
+                showToast('Welcome, ' + companyCorrespondence[password] + ' CFO! Login successful.', "success", 2000);
+                setTimeout(() => {
+                    event.target.submit();
+                }, 2200);
+                return;
+            }
+        });
+
+    </script>
+{% endblock %}

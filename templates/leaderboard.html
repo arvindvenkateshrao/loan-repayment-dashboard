@@ -1,0 +1,51 @@
+<h1><b>Loan Repayment Leaderboard</b></h1>
+
+{% extends "layout.html" %}
+{% block content %}
+<body style="background-color: rgb(255, 255, 255);">
+{% endblock %}
+{% block body %}
+
+
+{% for company, progress in leaderboard.items() %}
+<div class="mb-3">
+  <img src="{{ logos[company] }}" height="50" title="{{ company }} Logo">
+
+  <p style="font-size: large;">{{ company }}</p>
+  
+  <div class="w3-progress-container">
+    {% if progress <= 40 %}
+    <div class="w3-progressbar bg-danger" style="width: {{ progress }}%">
+    {% elif progress <= 69 %}
+    <div class="w3-progressbar bg-warning" style="width: {{ progress }}%">
+    {% elif progress <= 100 %}
+    <div class="w3-progressbar bg-success" style="width: {{ progress }}%">
+    {% elif progress > 100 %}
+    <div class="w3-progressbar bg-info" style="width: {{ progress }}%">
+    {% else %}
+    <div class="w3-progressbar secondary" style="width: {{ progress }}%">
+
+    {% endif %}
+      <span class="w3-progress-label">{{ progress }}%</span>
+    </div>
+  </div>
+</div>
+    {% endfor %}
+    {% if is_admin %}
+        <form method="POST" action="/reset" onsubmit="return confirm('Are you sure you want to reset all loan amounts and balances to 0?');">
+            <button type="submit" class="btn btn-danger">Reset Database</button>
+        </form>
+    {% endif %}
+    <form action="/paybalance">
+      <button type="submit" class="btn btn-primary">Go back to pay loans</button>
+    </form>
+    <br>
+    <form action="/login">
+      <button type="submit" class="btn btn-secondary">Go back to login</button>
+    </form>
+  <script type="text/javascript">
+    setInterval(function() {
+      location.reload(); // Reloads the current page
+    }, 10000); // 10000 milliseconds = 10 seconds
+</script>
+{% endblock %}
