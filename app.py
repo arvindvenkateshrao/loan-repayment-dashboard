@@ -5,7 +5,7 @@ import psycopg2.extras
 import os
 
 app = Flask(__name__)
-app.secret_key = os.environ.get("SECRET_KEY", "dev-key")
+app.secret_key = os.environ.get("SECRET_KEY")
 
 
 # PNG logos for companies
@@ -37,11 +37,8 @@ def get_db():
         if database_url.startswith("postgres://"):
             database_url = database_url.replace("postgres://", "postgresql://", 1)
 
-        # Render requires SSL
-        if "render.com" in database_url:
-            g.db = psycopg2.connect(database_url, sslmode="require")
-        else:
-            g.db = psycopg2.connect(database_url)
+        # Always require SSL for production databases (Supabase)
+        g.db = psycopg2.connect(database_url, sslmode="require")
 
     return g.db
 
@@ -254,6 +251,8 @@ def reset():
     return redirect("/leaderboard")
 
 
-if __name__ == "__main__":
+with app.app_context():
     init_db()
-    app.run(debug=True)
+
+if __name__ == "__main__":
+    app.run()
