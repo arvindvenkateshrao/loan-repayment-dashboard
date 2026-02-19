@@ -27,11 +27,11 @@ Built with **Flask** and **PostgreSQL**, this application allows predefined user
 ```
 loan-repayment-dashboard/
 │
-├── app.py # Main Flask application
-├── templates/ # HTML templates (Jinja2)
-├── static/ # CSS / static assets
-├── requirements.txt # Python dependencies
-├── Procfile # Deployment config
+├── app.py
+├── templates/
+├── static/
+├── requirements.txt
+├── Procfile
 └── README.md
 ```
 
