@@ -24,6 +24,7 @@ Built with **Flask** and **PostgreSQL**, this application allows predefined user
 ---
 
 ## 🗂 Project Structure
+```
 loan-repayment-dashboard/
 │
 ├── app.py # Main Flask application
@@ -32,7 +33,7 @@ loan-repayment-dashboard/
 ├── requirements.txt # Python dependencies
 ├── Procfile # Deployment config
 └── README.md
-
+```
 
 ## User Manual
 - Students
